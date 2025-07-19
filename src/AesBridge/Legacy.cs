@@ -98,13 +98,8 @@ namespace AesBridge
             using var md5 = MD5.Create();
             var data = Encoding.UTF8.GetBytes(password);
 
-            // key = new byte[KeyLen];
-            // iv = new byte[IvLen];
             var key = new byte[32];
             var iv = new byte[16];
-
-            // byte[] dx = new byte[] {};
-            // byte[] salted = new byte[] {};
 
             byte[] dx = Array.Empty<byte>();
             byte[] d = Array.Empty<byte>();
