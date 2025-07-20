@@ -139,11 +139,6 @@ namespace AesBridge
         /// <param name="data">Plaintext data to encrypt</param>
         /// <param name="passphrase">Passphrase used to derive key and IV</param>
         /// <returns>Base64-encoded encrypted data (Salted__ + salt + ciphertext)</returns>
-        /// Encrypts data using AES-GCM and returns Base64-encoded result.
-        /// </summary>
-        /// <param name="data">Data to encrypt</param>
-        /// <param name="passphrase">Encryption passphrase</param>
-        /// <returns>Bese64-encoded encrypted data</returns>
         public static string Encrypt(byte[] data, string passphrase)
         {
             Byte[] passphraseBytes = Encoding.UTF8.GetBytes(passphrase);
