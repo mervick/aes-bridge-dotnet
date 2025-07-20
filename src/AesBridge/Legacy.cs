@@ -13,28 +13,17 @@ namespace AesBridge
     public static class Legacy
     {
         /// <summary>
-        /// Encrypt input text with the password using random salt.
-        /// Returns base64 decoded encrypted string.
-        /// </summary>
-        /// <param name="raw">Input text to encrypt</param>
-        /// <param name="passphrase">Passphrase</param>
-        public static string Encrypt(string raw, string passphrase)
-        {
-            return Encrypt(Encoding.UTF8.GetBytes(raw), passphrase);
-        }
-
-        /// <summary>
         /// Encrypts plaintext using AES-256-CBC with OpenSSL-compatible format:
         /// base64(Salted__ + salt + ciphertext)
         /// </summary>
-        /// <param name="raw">Plaintext data to encrypt</param>
+        /// <param name="data">Plaintext data to encrypt</param>
         /// <param name="passphrase">Passphrase used to derive key and IV</param>
         /// <returns>Base64-encoded encrypted data (Salted__ + salt + ciphertext)</returns>
-        public static string Encrypt(byte[] raw, string passphrase)
+        public static string Encrypt(byte[] data, byte[] passphrase)
         {
             var salt = Common.Random(8);
             var (key, iv) = DeriveKeyAndIv(passphrase, salt);
-            var data = Pkcs7Pad(raw);
+            var dataPadded = Pkcs7Pad(data);
 
             using var aes = Aes.Create();
             aes.Key = key;
@@ -43,7 +32,7 @@ namespace AesBridge
             aes.Padding = PaddingMode.None;
 
             using var encryptor = aes.CreateEncryptor();
-            var ciphertext = encryptor.TransformFinalBlock(data, 0, data.Length);
+            var ciphertext = encryptor.TransformFinalBlock(dataPadded, 0, dataPadded.Length);
 
             using var output = new MemoryStream();
             output.Write(Encoding.ASCII.GetBytes("Salted__"), 0, 8);
@@ -54,26 +43,15 @@ namespace AesBridge
         }
 
         /// <summary>
-        /// Derypt encrypted text with the password using random salt.
-        /// Returns the decrypted string.
-        /// </summary>
-        /// <param name="encrypted">Encrypted text to decrypt</param>
-        /// <param name="passphrase">Passphrase</param>
-        public static string Decrypt(string encrypted, string passphrase)
-        {
-            return Encoding.UTF8.GetString(DecryptToBytes(encrypted, passphrase));
-        }
-
-        /// <summary>
         /// Decrypts base64-encoded AES-CBC ciphertext in OpenSSL-compatible format:
         /// base64(Salted__ + salt + ciphertext)
         /// </summary>
-        /// <param name="encrypted">Base64-encoded encrypted data</param>
+        /// <param name="data">Base64-encoded encrypted data</param>
         /// <param name="passphrase">Passphrase used to derive key and IV</param>
         /// <returns>Decrypted raw byte array</returns>
-        public static byte[] DecryptToBytes(string encrypted, string passphrase)
+        public static byte[] DecryptToBytes(string data, byte[] passphrase)
         {
-            var ct = Convert.FromBase64String(encrypted);
+            var ct = Convert.FromBase64String(data);
             if (ct.Length < 16 || Encoding.ASCII.GetString(ct, 0, 8) != "Salted__")
                 return Array.Empty<byte>();
 
@@ -95,14 +73,12 @@ namespace AesBridge
         /// <summary>
         /// Derives an AES key and IV from the given passphrase and salt using OpenSSL-compatible MD5-based key derivation.
         /// </summary>
-        /// <param name="password">Passphrase to use for key derivation</param>
+        /// <param name="passphrase">Passphrase to use for key derivation</param>
         /// <param name="salt">Salt to use for key derivation</param>
         /// <returns>Tuple containing the derived AES key and IV</returns>
-        private static (byte[] key, byte[] iv) DeriveKeyAndIv(string password, byte[] salt)
+        private static (byte[] key, byte[] iv) DeriveKeyAndIv(byte[] passphrase, byte[] salt)
         {
             using var md5 = MD5.Create();
-            var data = Encoding.UTF8.GetBytes(password);
-
             var key = new byte[32];
             var iv = new byte[16];
 
@@ -111,7 +87,7 @@ namespace AesBridge
 
             for (int i = 0; i <= 32; i++)
             {
-                dx = Common.Concat(Common.Concat(dx, data), salt);
+                dx = Common.Concat(Common.Concat(dx, passphrase), salt);
                 dx = md5.ComputeHash(dx);
                 d = Common.Concat(d, dx);
             }
@@ -142,12 +118,137 @@ namespace AesBridge
             return trimmed;
         }
 
-        private static byte[] Combine(byte[] a, byte[] b)
+        /// <summary>
+        /// Encrypts plaintext using AES-256-CBC with OpenSSL-compatible format:
+        /// base64(Salted__ + salt + ciphertext)
+        /// </summary>
+        /// <param name="data">Plaintext data to encrypt</param>
+        /// <param name="passphrase">Passphrase used to derive key and IV</param>
+        /// <returns>Base64-encoded encrypted data (Salted__ + salt + ciphertext)</returns>
+        public static string Encrypt(string data, string passphrase)
         {
-            var result = new byte[a.Length + b.Length];
-            Buffer.BlockCopy(a, 0, result, 0, a.Length);
-            Buffer.BlockCopy(b, 0, result, a.Length, b.Length);
-            return result;
+            Byte[] dataBytes = Encoding.UTF8.GetBytes(data);
+            Byte[] passphraseBytes = Encoding.UTF8.GetBytes(passphrase);
+            return Encrypt(dataBytes, passphraseBytes);
+        }
+
+        /// <summary>
+        /// Encrypts plaintext using AES-256-CBC with OpenSSL-compatible format:
+        /// base64(Salted__ + salt + ciphertext)
+        /// </summary>
+        /// <param name="data">Plaintext data to encrypt</param>
+        /// <param name="passphrase">Passphrase used to derive key and IV</param>
+        /// <returns>Base64-encoded encrypted data (Salted__ + salt + ciphertext)</returns>
+        /// Encrypts data using AES-GCM and returns Base64-encoded result.
+        /// </summary>
+        /// <param name="data">Data to encrypt</param>
+        /// <param name="passphrase">Encryption passphrase</param>
+        /// <returns>Bese64-encoded encrypted data</returns>
+        public static string Encrypt(byte[] data, string passphrase)
+        {
+            Byte[] passphraseBytes = Encoding.UTF8.GetBytes(passphrase);
+            return Encrypt(data, passphraseBytes);
+        }
+
+        /// <summary>
+        /// Encrypts plaintext using AES-256-CBC with OpenSSL-compatible format:
+        /// base64(Salted__ + salt + ciphertext)
+        /// </summary>
+        /// <param name="data">Plaintext data to encrypt</param>
+        /// <param name="passphrase">Passphrase used to derive key and IV</param>
+        /// <returns>Base64-encoded encrypted data (Salted__ + salt + ciphertext)</returns>
+        public static string Encrypt(string data, byte[] passphrase)
+        {
+            Byte[] dataBytes = Encoding.UTF8.GetBytes(data);
+            return Encrypt(dataBytes, passphrase);
+        }
+
+        /// <summary>
+        /// Decrypts base64-encoded AES-CBC ciphertext in OpenSSL-compatible format:
+        /// base64(Salted__ + salt + ciphertext)
+        /// </summary>
+        /// <param name="data">Base64-encoded encrypted data</param>
+        /// <param name="passphrase">Passphrase used to derive key and IV</param>
+        /// <returns>Decrypted raw byte array</returns>
+        public static byte[] DecryptToBytes(string data, string passphrase)
+        {
+            Byte[] passphraseBytes = Encoding.UTF8.GetBytes(passphrase);
+            return DecryptToBytes(data, passphraseBytes);
+        }
+
+        /// <summary>
+        /// Decrypts base64-encoded AES-CBC ciphertext in OpenSSL-compatible format:
+        /// base64(Salted__ + salt + ciphertext)
+        /// </summary>
+        /// <param name="data">Base64-encoded encrypted data</param>
+        /// <param name="passphrase">Passphrase used to derive key and IV</param>
+        /// <returns>Decrypted raw byte array</returns>
+        public static byte[] DecryptToBytes(byte[] data, byte[] passphrase)
+        {
+            string dataStr = Encoding.UTF8.GetString(data);
+            return DecryptToBytes(dataStr, passphrase);
+        }
+
+        /// <summary>
+        /// Decrypts base64-encoded AES-CBC ciphertext in OpenSSL-compatible format:
+        /// base64(Salted__ + salt + ciphertext)
+        /// </summary>
+        /// <param name="data">Base64-encoded encrypted data</param>
+        /// <param name="passphrase">Passphrase used to derive key and IV</param>
+        /// <returns>Decrypted raw byte array</returns>
+        public static byte[] DecryptToBytes(byte[] data, string passphrase)
+        {
+            string dataStr = Encoding.UTF8.GetString(data);
+            Byte[] passphraseBytes = Encoding.UTF8.GetBytes(passphrase);
+            return DecryptToBytes(dataStr, passphraseBytes);
+        }
+
+        /// <summary>
+        /// Decrypts base64-encoded AES-CBC ciphertext in OpenSSL-compatible format:
+        /// base64(Salted__ + salt + ciphertext)
+        /// </summary>
+        /// <param name="data">Encrypted text to decrypt</param>
+        /// <param name="passphrase">Passphrase</param>
+        /// <returns>Decrypted data</returns>
+        public static string Decrypt(byte[] data, byte[] passphrase)
+        {
+            return Encoding.UTF8.GetString(DecryptToBytes(data, passphrase));
+        }
+
+        /// <summary>
+        /// Decrypts base64-encoded AES-CBC ciphertext in OpenSSL-compatible format:
+        /// base64(Salted__ + salt + ciphertext)
+        /// </summary>
+        /// <param name="data">Encrypted text to decrypt</param>
+        /// <param name="passphrase">Passphrase</param>
+        /// <returns>Decrypted data</returns>
+        public static string Decrypt(byte[] data, string passphrase)
+        {
+            return Encoding.UTF8.GetString(DecryptToBytes(data, passphrase));
+        }
+
+        /// <summary>
+        /// Decrypts base64-encoded AES-CBC ciphertext in OpenSSL-compatible format:
+        /// base64(Salted__ + salt + ciphertext)
+        /// </summary>
+        /// <param name="data">Encrypted text to decrypt</param>
+        /// <param name="passphrase">Passphrase</param>
+        /// <returns>Decrypted data</returns>
+        public static string Decrypt(string data, byte[] passphrase)
+        {
+            return Encoding.UTF8.GetString(DecryptToBytes(data, passphrase));
+        }
+
+        /// <summary>
+        /// Decrypts base64-encoded AES-CBC ciphertext in OpenSSL-compatible format:
+        /// base64(Salted__ + salt + ciphertext)
+        /// </summary>
+        /// <param name="data">Encrypted text to decrypt</param>
+        /// <param name="passphrase">Passphrase</param>
+        /// <returns>Decrypted data</returns>
+        public static string Decrypt(string data, string passphrase)
+        {
+            return Encoding.UTF8.GetString(DecryptToBytes(data, passphrase));
         }
     }
 }

@@ -198,40 +198,49 @@ Decrypts binary data using a given passphrase
 Encrypts data using a given passphrase.
 
 **Parameters:**
-- `raw`: `string` or `byte[]` - Data to encrypt.
-- `passphrase`: `string` - Encryption passphrase.
+- `data`: `string` or `byte[]` - Data to encrypt.
+- `passphrase`: `string` or `byte[]` - Encryption passphrase.
 
 **Returns:** `string` - Encrypted data.
 
 **Overloads:**
-* `public static string Encrypt(string raw, string passphrase)`
-* `public static string Encrypt(byte[] raw, string passphrase)`
-
+* `public static string Encrypt(byte[] data, byte[] passphrase)`
+* `public static string Encrypt(byte[] data, string passphrase)`
+* `public static string Encrypt(string data, byte[] passphrase)`
+* `public static string Encrypt(string data, string passphrase)`
 ---
 
 #### `AesBridge.Legacy.Decrypt`
 
-`public static string Decrypt(string encrypted, string passphrase)`
-
 Decrypts **string** data using a given passphrase.
 
 **Parameters:**
-- `encrypted`: `string` - Data to decrypt in **base64**-encoded format
-- `passphrase`: `string` - Encryption passphrase.
+- `data`: `string` or `byte[]` - Data to decrypt in **base64**-encoded format
+- `passphrase`: `string` or `byte[]` - Encryption passphrase.
 
 **Returns:** `string` - Decrypted data.
+
+**Overloads:**
+* `public static string Decrypt(byte[] data, byte[] passphrase)`
+* `public static string Decrypt(byte[] data, string passphrase)`
+* `public static string Decrypt(string data, byte[] passphrase)`
+* `public static string Decrypt(string data, string passphrase)`
 
 ---
 
 #### `AesBridge.Legacy.DecryptToBytes`
 
-`public static byte[] DecryptToBytes(string encrypted, string passphrase)`
-
 Decrypts **string** data to a byte array using a given passphrase.
 
 **Parameters:**
-- `encrypted`: `string` - Data to decrypt in **base64**-encoded format
-- `passphrase`: `string` - Encryption passphrase.
+- `data`: `string`  or `byte[]`- Data to decrypt in **base64**-encoded format
+- `passphrase`: `string` or `byte[]` - Encryption passphrase.
 
 **Returns:** `byte[]` - Decrypted data as a byte array.
+
+**Overloads:**
+* `public static byte[] DecryptToBytes(byte[] data, byte[] passphrase)`
+* `public static byte[] DecryptToBytes(byte[] data, string passphrase)`
+* `public static byte[] DecryptToBytes(string data, byte[] passphrase)`
+* `public static byte[] DecryptToBytes(string data, string passphrase)`
 
