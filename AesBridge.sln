@@ -2,7 +2,7 @@
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AesBridge", "src\AesBridge\AesBridge.csproj", "{A67D3D5B-53D5-6E14-6D5E-E40D4BD540F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AesBridge", "AesBridge.csproj", "{A67D3D5B-53D5-6E14-6D5E-E40D4BD540F7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AesBridgeTests", "Tests\AesBridgeTests.csproj", "{96F8D3DF-975E-4AE1-AF4B-78B5AAD7B2E2}"
 EndProject

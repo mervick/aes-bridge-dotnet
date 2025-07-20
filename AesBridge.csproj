@@ -44,4 +44,8 @@
     <PackageReference Include="System.Text.Encoding" Version="4.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Tests\**" />
+  </ItemGroup>
+
 </Project>
