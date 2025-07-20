@@ -1,5 +1,3 @@
-using System;
-using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -57,7 +55,7 @@ namespace AesBridge
         /// </summary>
         /// <param name="data">Encrypted binary: salt + IV + ciphertext + HMAC</param>
         /// <param name="passphrase">Encryption passphrase</param>
-        /// <returns>Decrypted original plaintext</returns>
+        /// <returns>Decrypted original data</returns>
         public static byte[] DecryptBin(byte[] data, byte[] passphrase)
         {
             var salt = data[..16];
@@ -116,7 +114,7 @@ namespace AesBridge
         /// <summary>
         /// Encrypts data using AES-256 in CBC mode.
         /// </summary>
-        /// <param name="plaintext">Data to encrypt</param>
+        /// <param name="data">Data to encrypt</param>
         /// <param name="passphrase">Encryption passphrase</param>
         /// <returns>Encrypted data in format: salt (16) + IV (16) + ciphertext (N) + HMAC (32)</returns>
         public static byte[] EncryptBin(byte[] data, string passphrase)
@@ -128,7 +126,7 @@ namespace AesBridge
         /// <summary>
         /// Encrypts data using AES-256 in CBC mode.
         /// </summary>
-        /// <param name="plaintext">Data to encrypt</param>
+        /// <param name="data">Data to encrypt</param>
         /// <param name="passphrase">Encryption passphrase</param>
         /// <returns>Encrypted data in format: salt (16) + IV (16) + ciphertext (N) + HMAC (32)</returns>
         public static byte[] EncryptBin(string data, byte[] passphrase)
@@ -140,7 +138,7 @@ namespace AesBridge
         /// <summary>
         /// Encrypts data using AES-256 in CBC mode.
         /// </summary>
-        /// <param name="plaintext">Data to encrypt</param>
+        /// <param name="data">Data to encrypt</param>
         /// <param name="passphrase">Encryption passphrase</param>
         /// <returns>Encrypted data in format: salt (16) + IV (16) + ciphertext (N) + HMAC (32)</returns>
         public static byte[] EncryptBin(string data, string passphrase)
@@ -165,7 +163,7 @@ namespace AesBridge
         /// <summary>
         /// Encrypts data using AES-CBC and returns Base64-encoded result.
         /// </summary>
-        /// <param name="plaintext">Data to encrypt</param>
+        /// <param name="data">Data to encrypt</param>
         /// <param name="passphrase">Encryption passphrase</param>
         /// <returns>Bese64-encoded encrypted data</returns>
         public static string Encrypt(byte[] data, byte[] passphrase)
@@ -177,7 +175,7 @@ namespace AesBridge
         /// <summary>
         /// Encrypts data using AES-CBC and returns Base64-encoded result.
         /// </summary>
-        /// <param name="plaintext">Data to encrypt</param>
+        /// <param name="data">Data to encrypt</param>
         /// <param name="passphrase">Encryption passphrase</param>
         /// <returns>Bese64-encoded encrypted data</returns>
         public static string Encrypt(byte[] data, string passphrase)
@@ -189,7 +187,7 @@ namespace AesBridge
         /// <summary>
         /// Encrypts data using AES-CBC and returns Base64-encoded result.
         /// </summary>
-        /// <param name="plaintext">Data to encrypt</param>
+        /// <param name="data">Data to encrypt</param>
         /// <param name="passphrase">Encryption passphrase</param>
         /// <returns>Bese64-encoded encrypted data</returns>
         public static string Encrypt(string data, byte[] passphrase)
@@ -201,7 +199,7 @@ namespace AesBridge
         /// <summary>
         /// Encrypts data using AES-CBC and returns Base64-encoded result.
         /// </summary>
-        /// <param name="plaintext">Data to encrypt</param>
+        /// <param name="data">Data to encrypt</param>
         /// <param name="passphrase">Encryption passphrase</param>
         /// <returns>Bese64-encoded encrypted data</returns>
         public static string Encrypt(string data, string passphrase)

@@ -1,4 +1,3 @@
-using System;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -90,7 +89,7 @@ namespace AesBridge
         /// <summary>
         /// Encrypts data using AES-256 in GCM mode.
         /// </summary>
-        /// <param name="plaintext">Data to encrypt</param>
+        /// <param name="data">Data to encrypt</param>
         /// <param name="passphrase">Encryption passphrase</param>
         /// <returns>Encrypted data in format: salt(16) + nonce(12) + ciphertext + tag(16)</returns>
         public static byte[] EncryptBin(byte[] data, string passphrase)
@@ -102,7 +101,7 @@ namespace AesBridge
         /// <summary>
         /// Encrypts data using AES-256 in GCM mode.
         /// </summary>
-        /// <param name="plaintext">Data to encrypt</param>
+        /// <param name="data">Data to encrypt</param>
         /// <param name="passphrase">Encryption passphrase</param>
         /// <returns>Encrypted data in format: salt(16) + nonce(12) + ciphertext + tag(16)</returns>
         public static byte[] EncryptBin(string data, byte[] passphrase)
@@ -114,7 +113,7 @@ namespace AesBridge
         /// <summary>
         /// Encrypts data using AES-256 in GCM mode.
         /// </summary>
-        /// <param name="plaintext">Data to encrypt</param>
+        /// <param name="data">Data to encrypt</param>
         /// <param name="passphrase">Encryption passphrase</param>
         /// <returns>Encrypted data in format: salt(16) + nonce(12) + ciphertext + tag(16)</returns>
         public static byte[] EncryptBin(string data, string passphrase)
@@ -139,7 +138,7 @@ namespace AesBridge
         /// <summary>
         /// Encrypts data using AES-GCM and returns Base64-encoded result.
         /// </summary>
-        /// <param name="plaintext">Data to encrypt</param>
+        /// <param name="data">Data to encrypt</param>
         /// <param name="passphrase">Encryption passphrase</param>
         /// <returns>Bese64-encoded encrypted data</returns>
         public static string Encrypt(byte[] data, byte[] passphrase)
@@ -151,7 +150,7 @@ namespace AesBridge
         /// <summary>
         /// Encrypts data using AES-GCM and returns Base64-encoded result.
         /// </summary>
-        /// <param name="plaintext">Data to encrypt</param>
+        /// <param name="data">Data to encrypt</param>
         /// <param name="passphrase">Encryption passphrase</param>
         /// <returns>Bese64-encoded encrypted data</returns>
         public static string Encrypt(byte[] data, string passphrase)
@@ -163,7 +162,7 @@ namespace AesBridge
         /// <summary>
         /// Encrypts data using AES-GCM and returns Base64-encoded result.
         /// </summary>
-        /// <param name="plaintext">Data to encrypt</param>
+        /// <param name="data">Data to encrypt</param>
         /// <param name="passphrase">Encryption passphrase</param>
         /// <returns>Bese64-encoded encrypted data</returns>
         public static string Encrypt(string data, byte[] passphrase)
@@ -175,7 +174,7 @@ namespace AesBridge
         /// <summary>
         /// Encrypts data using AES-GCM and returns Base64-encoded result.
         /// </summary>
-        /// <param name="plaintext">Data to encrypt</param>
+        /// <param name="data">Data to encrypt</param>
         /// <param name="passphrase">Encryption passphrase</param>
         /// <returns>Bese64-encoded encrypted data</returns>
         public static string Encrypt(string data, string passphrase)

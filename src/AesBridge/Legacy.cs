@@ -1,21 +1,26 @@
-using System;
-using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace AesBridge
 {
+    /// <summary>
+    /// The Legacy class provides methods for encryption and decryption
+    /// using a legacy AES-compatible format. This format is maintained
+    /// for compatibility with older systems and follows the AES Everywhere
+    /// implementation. It is not recommended for use in new applications
+    /// due to potential security limitations.
+    /// </summary>
     public static class Legacy
     {
         /// <summary>
         /// Encrypt input text with the password using random salt.
         /// Returns base64 decoded encrypted string.
         /// </summary>
-        /// <param name="text">Input text to encrypt</param>
+        /// <param name="raw">Input text to encrypt</param>
         /// <param name="passphrase">Passphrase</param>
-        public static string Encrypt(string text, string passphrase)
+        public static string Encrypt(string raw, string passphrase)
         {
-            return Encrypt(Encoding.UTF8.GetBytes(text), passphrase);
+            return Encrypt(Encoding.UTF8.GetBytes(raw), passphrase);
         }
 
         /// <summary>
@@ -63,12 +68,12 @@ namespace AesBridge
         /// Decrypts base64-encoded AES-CBC ciphertext in OpenSSL-compatible format:
         /// base64(Salted__ + salt + ciphertext)
         /// </summary>
-        /// <param name="encoded">Base64-encoded encrypted data</param>
+        /// <param name="encrypted">Base64-encoded encrypted data</param>
         /// <param name="passphrase">Passphrase used to derive key and IV</param>
         /// <returns>Decrypted raw byte array</returns>
-        public static byte[] DecryptToBytes(string encoded, string passphrase)
+        public static byte[] DecryptToBytes(string encrypted, string passphrase)
         {
-            var ct = Convert.FromBase64String(encoded);
+            var ct = Convert.FromBase64String(encrypted);
             if (ct.Length < 16 || Encoding.ASCII.GetString(ct, 0, 8) != "Salted__")
                 return Array.Empty<byte>();
 
@@ -104,7 +109,8 @@ namespace AesBridge
             byte[] dx = Array.Empty<byte>();
             byte[] d = Array.Empty<byte>();
 
-            for (int i = 0; i <= 32; i++) {
+            for (int i = 0; i <= 32; i++)
+            {
                 dx = Common.Concat(Common.Concat(dx, data), salt);
                 dx = md5.ComputeHash(dx);
                 d = Common.Concat(d, dx);
