@@ -22,6 +22,7 @@ jobs:
       run: |
         sed -i '/<TargetFrameworks>/s/net7\.0//g' AesBridge.csproj
         sed -i '/<TargetFrameworks>/s/net8\.0//g' AesBridge.csproj
+        sed -i '/<TargetFrameworks>/s/net8\.0/net6\.0/g' Tests/AesBridgeTests.csproj
       working-directory: .
 
     - name: Setup .NET 6.0
