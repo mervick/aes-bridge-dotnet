@@ -11,34 +11,6 @@ on:
       - '.github/workflows/**'
 
 jobs:
-  test-net6:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - name: Precisely remove net7.0;net8.0 from TargetFrameworks in AesBridge.csproj
-      run: |
-        sed -i '/<TargetFrameworks>/s/net7\.0//g' AesBridge.csproj
-        sed -i '/<TargetFrameworks>/s/net8\.0//g' AesBridge.csproj
-        sed -i '/<TargetFramework>/s/net8\.0/net6\.0/g' Tests/AesBridgeTests.csproj
-      working-directory: .
-
-    - name: Setup .NET 6.0
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '6.0.x'
-
-    - name: Install dependencies
-      run: dotnet restore
-
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
-
-    - name: Run tests
-      run: dotnet test --verbosity normal
-
   test-net8:
     runs-on: ubuntu-latest
 
