@@ -24,7 +24,7 @@ Install the package via NuGet Package Manager Console:
 Install-Package AesBridge
 ```
 
-Or via .NET CLI:
+or via .NET CLI:
 
 ```bash
 dotnet add package AesBridge
@@ -57,7 +57,8 @@ All core functions are available through the module `AesBridge` namespase.
 
 ---
 
-#### `AesBridge.Gcm.Encrypt`
+<a name="api-gcm-encrypt"></a>
+#### `AesBridge.Gcm.Encrypt (data, passphrase)`
 
 Encrypts data using a given passphrase, returning the encrypted result as a **base64**-encoded string
 
@@ -67,15 +68,10 @@ Encrypts data using a given passphrase, returning the encrypted result as a **ba
 
 **Returns:** `string` - the encrypted data as a **Base64**-encoded string.
 
-**Overloads:**
-* `public static string Encrypt(byte[] data, byte[] passphrase)`
-* `public static string Encrypt(byte[] data, string passphrase)`
-* `public static string Encrypt(string data, byte[] passphrase)`
-* `public static string Encrypt(string data, string passphrase)`
-
 ---
 
-#### `AesBridge.Gcm.EncryptBin`
+<a name="api-gcm-encrypt-bin"></a>
+#### `AesBridge.Gcm.EncryptBin (data, passphrase)`
 
 Encrypts data using a given passphrase, returning binary encrypted data
 
@@ -85,15 +81,10 @@ Encrypts data using a given passphrase, returning binary encrypted data
 
 **Returns:** `byte[]` - encrypted data in binary format: `salt + nonce + ciphertext + tag`
 
-**Overloads:**
-* `public static byte[] EncryptBin(byte[] data, byte[] passphrase)`
-* `public static byte[] EncryptBin(byte[] data, string passphrase)`
-* `public static byte[] EncryptBin(string data, byte[] passphrase)`
-* `public static byte[] EncryptBin(string data, string passphrase)`
-
 ---
 
-#### `AesBridge.Gcm.Decrypt`
+<a name="api-gcm-decrypt"></a>
+#### `AesBridge.Gcm.Decrypt (data, passphrase)`
 
 Decrypts **Base64**-encoded data using a given passphrase
 
@@ -103,15 +94,10 @@ Decrypts **Base64**-encoded data using a given passphrase
 
 **Returns:** `byte[]` - decrypted data 
 
-**Overloads:**
-* `public static byte[] Decrypt(byte[] data, byte[] passphrase)`
-* `public static byte[] Decrypt(byte[] data, string passphrase)`
-* `public static byte[] Decrypt(string data, byte[] passphrase)`
-* `public static byte[] Decrypt(string data, string passphrase)`
-
 ---
 
-#### `AesBridge.Gcm.DecryptBin`
+<a name="api-gcm-decrypt-bin"></a>
+#### `AesBridge.Gcm.DecryptBin (data, passphrase)`
 
 Decrypts binary data using a given passphrase
 
@@ -120,10 +106,6 @@ Decrypts binary data using a given passphrase
 - `passphrase`: `string` or `byte[]` - Encryption passphrase
 
 **Returns:** `byte[]` – decrypted data in binary form.
-
-**Overloads:**
-* `public static byte[] DecryptBin(byte[] data, byte[] passphrase)`
-* `public static byte[] DecryptBin(byte[] data, string passphrase)`
 
 ---
 
@@ -133,7 +115,8 @@ Decrypts binary data using a given passphrase
 
 ---
 
-#### `AesBridge.Cbc.Encrypt`
+<a name="api-cbc-encrypt"></a>
+#### `AesBridge.Cbc.Encrypt (data, passphrase)`
 
 Encrypts data using a given passphrase, returning the encrypted result as a **base64**-encoded string
 
@@ -143,15 +126,10 @@ Encrypts data using a given passphrase, returning the encrypted result as a **ba
 
 **Returns:** `string` - the encrypted data as a **Base64**-encoded string.
 
-**Overloads:**
-* `public static string Encrypt(byte[] data, byte[] passphrase)`
-* `public static string Encrypt(byte[] data, string passphrase)`
-* `public static string Encrypt(string data, byte[] passphrase)`
-* `public static string Encrypt(string data, string passphrase)`
-
 ---
 
-#### `AesBridge.Cbc.EncryptBin`
+<a name="api-cbc-encrypt-bin"></a>
+#### `AesBridge.Cbc.EncryptBin (data, passphrase)`
 
 Encrypts data using a given passphrase, returning binary encrypted data
 
@@ -161,15 +139,10 @@ Encrypts data using a given passphrase, returning binary encrypted data
 
 **Returns:** `byte[]` - encrypted data in binary format: `salt + nonce + ciphertext + tag`
 
-**Overloads:**
-* `public static byte[] EncryptBin(byte[] data, byte[] passphrase)`
-* `public static byte[] EncryptBin(byte[] data, string passphrase)`
-* `public static byte[] EncryptBin(string data, byte[] passphrase)`
-* `public static byte[] EncryptBin(string data, string passphrase)`
-
 ---
 
-#### `AesBridge.Cbc.Decrypt`
+<a name="api-cbc-decrypt"></a>
+#### `AesBridge.Cbc.Decrypt (data, passphrase)`
 
 Decrypts **Base64**-encoded data using a given passphrase
 
@@ -179,15 +152,10 @@ Decrypts **Base64**-encoded data using a given passphrase
 
 **Returns:** `byte[]` - decrypted data 
 
-**Overloads:**
-* `public static byte[] Decrypt(byte[] data, byte[] passphrase)`
-* `public static byte[] Decrypt(byte[] data, string passphrase)`
-* `public static byte[] Decrypt(string data, byte[] passphrase)`
-* `public static byte[] Decrypt(string data, string passphrase)`
-
 ---
 
-#### `AesBridge.Cbc.DecryptBin`
+<a name="api-cbc-decrypt-bin"></a>
+#### `AesBridge.Cbc.DecryptBin (data, passphrase)`
 
 Decrypts binary data using a given passphrase
 
@@ -197,10 +165,6 @@ Decrypts binary data using a given passphrase
 
 **Returns:** `byte[]` – decrypted data in binary form.
 
-**Overloads:**
-* `public static byte[] DecryptBin(byte[] data, byte[] passphrase)`
-* `public static byte[] DecryptBin(byte[] data, string passphrase)`
-
 ---
 
 ### Legacy mode
@@ -209,7 +173,8 @@ Decrypts binary data using a given passphrase
 
 ---
 
-#### `AesBridge.Legacy.Encrypt`
+<a name="api-legacy-encrypt"></a>
+#### `AesBridge.Legacy.Encrypt (data, passphrase)`
 
 Encrypts data using a given passphrase.
 
@@ -219,14 +184,10 @@ Encrypts data using a given passphrase.
 
 **Returns:** `string` - Encrypted data.
 
-**Overloads:**
-* `public static string Encrypt(byte[] data, byte[] passphrase)`
-* `public static string Encrypt(byte[] data, string passphrase)`
-* `public static string Encrypt(string data, byte[] passphrase)`
-* `public static string Encrypt(string data, string passphrase)`
 ---
 
-#### `AesBridge.Legacy.Decrypt`
+<a name="api-legacy-decrypt"></a>
+#### `AesBridge.Legacy.Decrypt (data, passphrase)`
 
 Decrypts **string** data using a given passphrase.
 
@@ -236,15 +197,10 @@ Decrypts **string** data using a given passphrase.
 
 **Returns:** `string` - Decrypted data.
 
-**Overloads:**
-* `public static string Decrypt(byte[] data, byte[] passphrase)`
-* `public static string Decrypt(byte[] data, string passphrase)`
-* `public static string Decrypt(string data, byte[] passphrase)`
-* `public static string Decrypt(string data, string passphrase)`
-
 ---
 
-#### `AesBridge.Legacy.DecryptToBytes`
+<a name="api-legacy-decrypt-to-bytes"></a>
+#### `AesBridge.Legacy.DecryptToBytes (data, passphrase)`
 
 Decrypts **string** data to a byte array using a given passphrase.
 
@@ -253,10 +209,4 @@ Decrypts **string** data to a byte array using a given passphrase.
 - `passphrase`: `string` or `byte[]` - Encryption passphrase.
 
 **Returns:** `byte[]` - Decrypted data as a byte array.
-
-**Overloads:**
-* `public static byte[] DecryptToBytes(byte[] data, byte[] passphrase)`
-* `public static byte[] DecryptToBytes(byte[] data, string passphrase)`
-* `public static byte[] DecryptToBytes(string data, byte[] passphrase)`
-* `public static byte[] DecryptToBytes(string data, string passphrase)`
 
