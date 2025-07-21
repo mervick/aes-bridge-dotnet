@@ -111,6 +111,22 @@ Decrypts **Base64**-encoded data using a given passphrase
 
 ---
 
+#### `AesBridge.Gcm.DecryptBin`
+
+Decrypts binary data using a given passphrase
+
+**Parameters:**
+- `data`: `byte[]` - Data to decrypt in binary format: `salt + nonce + ciphertext + tag`
+- `passphrase`: `string` or `byte[]` - Encryption passphrase
+
+**Returns:** `byte[]` – decrypted data in binary form.
+
+**Overloads:**
+* `public static byte[] DecryptBin(byte[] data, byte[] passphrase)`
+* `public static byte[] DecryptBin(byte[] data, string passphrase)`
+
+---
+
 ### CBC Mode 
 
 **Cipher Block Chaining with HMAC Verification - AES 256**
@@ -176,7 +192,7 @@ Decrypts **Base64**-encoded data using a given passphrase
 Decrypts binary data using a given passphrase
 
 **Parameters:**
-- `data`: `string` or `byte[]` - Data to decrypt in binary format: `salt + nonce + ciphertext + tag`
+- `data`: `byte[]` - Data to decrypt in binary format: `salt + nonce + ciphertext + tag`
 - `passphrase`: `string` or `byte[]` - Encryption passphrase
 
 **Returns:** `byte[]` – decrypted data in binary form.
