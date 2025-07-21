@@ -57,7 +57,6 @@ All core functions are available through the module `AesBridge` namespase.
 
 ---
 
-<a name="api-gcm-encrypt"></a>
 #### `AesBridge.Gcm.Encrypt (data, passphrase)`
 
 Encrypts data using a given passphrase, returning the encrypted result as a **base64**-encoded string
@@ -70,7 +69,6 @@ Encrypts data using a given passphrase, returning the encrypted result as a **ba
 
 ---
 
-<a name="api-gcm-encrypt-bin"></a>
 #### `AesBridge.Gcm.EncryptBin (data, passphrase)`
 
 Encrypts data using a given passphrase, returning binary encrypted data
@@ -83,7 +81,6 @@ Encrypts data using a given passphrase, returning binary encrypted data
 
 ---
 
-<a name="api-gcm-decrypt"></a>
 #### `AesBridge.Gcm.Decrypt (data, passphrase)`
 
 Decrypts **Base64**-encoded data using a given passphrase
@@ -96,7 +93,6 @@ Decrypts **Base64**-encoded data using a given passphrase
 
 ---
 
-<a name="api-gcm-decrypt-bin"></a>
 #### `AesBridge.Gcm.DecryptBin (data, passphrase)`
 
 Decrypts binary data using a given passphrase
@@ -115,7 +111,6 @@ Decrypts binary data using a given passphrase
 
 ---
 
-<a name="api-cbc-encrypt"></a>
 #### `AesBridge.Cbc.Encrypt (data, passphrase)`
 
 Encrypts data using a given passphrase, returning the encrypted result as a **base64**-encoded string
@@ -128,7 +123,6 @@ Encrypts data using a given passphrase, returning the encrypted result as a **ba
 
 ---
 
-<a name="api-cbc-encrypt-bin"></a>
 #### `AesBridge.Cbc.EncryptBin (data, passphrase)`
 
 Encrypts data using a given passphrase, returning binary encrypted data
@@ -141,7 +135,6 @@ Encrypts data using a given passphrase, returning binary encrypted data
 
 ---
 
-<a name="api-cbc-decrypt"></a>
 #### `AesBridge.Cbc.Decrypt (data, passphrase)`
 
 Decrypts **Base64**-encoded data using a given passphrase
@@ -154,7 +147,6 @@ Decrypts **Base64**-encoded data using a given passphrase
 
 ---
 
-<a name="api-cbc-decrypt-bin"></a>
 #### `AesBridge.Cbc.DecryptBin (data, passphrase)`
 
 Decrypts binary data using a given passphrase
@@ -173,7 +165,6 @@ Decrypts binary data using a given passphrase
 
 ---
 
-<a name="api-legacy-encrypt"></a>
 #### `AesBridge.Legacy.Encrypt (data, passphrase)`
 
 Encrypts data using a given passphrase.
@@ -186,7 +177,6 @@ Encrypts data using a given passphrase.
 
 ---
 
-<a name="api-legacy-decrypt"></a>
 #### `AesBridge.Legacy.Decrypt (data, passphrase)`
 
 Decrypts **string** data using a given passphrase.
@@ -199,7 +189,6 @@ Decrypts **string** data using a given passphrase.
 
 ---
 
-<a name="api-legacy-decrypt-to-bytes"></a>
 #### `AesBridge.Legacy.DecryptToBytes (data, passphrase)`
 
 Decrypts **string** data to a byte array using a given passphrase.
