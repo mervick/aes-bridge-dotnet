@@ -46,6 +46,7 @@
 
   <ItemGroup>
     <Compile Remove="Tests\**" />
+    <Compile Remove="Cli\**" />
   </ItemGroup>
 
 </Project>
