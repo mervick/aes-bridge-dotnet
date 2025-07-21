@@ -47,7 +47,6 @@ namespace AesBridge
             var tag = new byte[16];
             var key = DeriveKey(passphrase, salt);
 
-            // var aesWrapper = new AesGsmWrapper();
             using (var aesGcm = CreateAesGcm(key))
             {
                 aesGcm.Encrypt(nonce, data, ciphertext, tag);
@@ -77,7 +76,6 @@ namespace AesBridge
             var plaintext = new byte[ciphertext.Length];
             var key = DeriveKey(passphrase, salt);
 
-            // var aesWrapper = new AesGsmWrapper();
             using (var aesGcm = CreateAesGcm(key))
             {
                 aesGcm.Decrypt(nonce, ciphertext, tag, plaintext);
